@@ -23,7 +23,7 @@ variable "account_tier" {
   default = "Standard"
 }
 
-variable "account_kind " {
+variable "account_kind" {
   type    = string
   default = "StorageV2"
 }
