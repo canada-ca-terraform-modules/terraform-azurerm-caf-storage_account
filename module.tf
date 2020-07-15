@@ -17,5 +17,6 @@ resource "azurerm_storage_account" "storage_account" {
   account_tier             = var.account_tier
   account_kind             = var.account_kind
   account_replication_type = var.account_replication_type
+  is_hns_enabled           = var.is_hns_enabled
   tags                     = var.tags
 }
