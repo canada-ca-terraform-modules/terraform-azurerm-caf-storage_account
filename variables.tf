@@ -37,3 +37,13 @@ variable "is_hns_enabled" {
   type = bool
   default = false
 }
+
+variable "min_tls_version" {
+  type = string
+  default = "TLS1_2"
+}
+
+variable "allow_blob_public_access" {
+  type = bool
+  default = false
+}
