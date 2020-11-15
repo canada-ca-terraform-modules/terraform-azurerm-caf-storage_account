@@ -1,49 +1,55 @@
 variable "tags" {
-  description = "(Required) tagging for the log analytics workspace"
+  description = "Tags to be applied to the AKV to be created"
+  type        = map(string)
 }
 
 variable "resource_group" {
-  description = "(Required) Resource group object for the storage_account to be created"
+  description = "Resource group object of the AKV to be created"
+  type        = any
 }
 
 variable "env" {
   description = "(Required) env value"
   type        = string
-  default     = ""
 }
 
 variable "userDefinedString" {
-  description = "(Required) userDefinedString value"
+  description = "UserDefinedString part of the name of the resource"
   type        = string
-  default     = ""
 }
 
 variable "account_tier" {
+  description = "Defines the Tier to use for this storage account. Valid options are Standard and Premium. For BlockBlobStorage and FileStorage accounts only Premium is valid. Changing this forces a new resource to be created."
   type    = string
   default = "Standard"
 }
 
 variable "account_kind" {
+  description = "Defines the Kind of account. Valid options are BlobStorage, BlockBlobStorage, FileStorage, Storage and StorageV2. Changing this forces a new resource to be created."
   type    = string
   default = "StorageV2"
 }
 
 variable "account_replication_type" {
+  description = "Defines the type of replication to use for this storage account. Valid options are LRS, GRS, RAGRS, ZRS, GZRS and RAGZRS."
   type    = string
   default = "GRS"
 }
 
 variable "is_hns_enabled" {
-  type = bool
+  description = "Is Hierarchical Namespace enabled? This can be used with Azure Data Lake Storage Gen 2 (see https://docs.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-quickstart-create-account/ for more information). Changing this forces a new resource to be created."
+  type    = bool
   default = false
 }
 
 variable "min_tls_version" {
-  type = string
+  description = "The minimum supported TLS version for the storage account. Possible values are TLS1_0, TLS1_1, and TLS1_2."
+  type    = string
   default = "TLS1_2"
 }
 
 variable "allow_blob_public_access" {
-  type = bool
+  description = "Allow or disallow public access to all blobs or containers in the storage account."
+  type    = bool
   default = false
 }
