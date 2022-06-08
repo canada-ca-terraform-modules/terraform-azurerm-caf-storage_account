@@ -48,8 +48,8 @@ variable "min_tls_version" {
   default = "TLS1_2"
 }
 
-variable "allow_blob_public_access" {
-  description = "Allow or disallow public access to all blobs or containers in the storage account."
+variable "allow_nested_items_to_be_public" {
+  description = "Allow or disallow nested items within this Account to opt into being public. Defaults to true."
   type    = bool
   default = false
 }
