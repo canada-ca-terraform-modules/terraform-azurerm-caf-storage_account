@@ -11,14 +11,15 @@ locals {
 }
 
 resource "azurerm_storage_account" "storage_account" {
-  name                     = local.storage_account-name
-  location                 = var.resource_group.location
-  resource_group_name      = var.resource_group.name
-  account_tier             = var.account_tier
-  account_kind             = var.account_kind
-  account_replication_type = var.account_replication_type
-  is_hns_enabled           = var.is_hns_enabled
-  min_tls_version          = var.min_tls_version
+  name                            = local.storage_account-name
+  location                        = var.resource_group.location
+  resource_group_name             = var.resource_group.name
+  account_tier                    = var.account_tier
+  account_kind                    = var.account_kind
+  account_replication_type        = var.account_replication_type
+  is_hns_enabled                  = var.is_hns_enabled
+  min_tls_version                 = var.min_tls_version
   allow_nested_items_to_be_public = var.allow_nested_items_to_be_public
-  tags                     = var.tags
+  enable_https_traffic_only       = var.enable_https_traffic_only
+  tags                            = var.tags
 }
