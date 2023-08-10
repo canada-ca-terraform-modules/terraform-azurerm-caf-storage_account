@@ -14,12 +14,17 @@ resource "azurerm_storage_account" "storage_account" {
   name                            = local.storage_account-name
   location                        = var.resource_group.location
   resource_group_name             = var.resource_group.name
+  access_tier                     = var.access_tier
   account_tier                    = var.account_tier
   account_kind                    = var.account_kind
   account_replication_type        = var.account_replication_type
+  default_to_oauth_authentication = var.default_to_oauth_authentication
   is_hns_enabled                  = var.is_hns_enabled
   min_tls_version                 = var.min_tls_version
+  nfsv3_enabled                   = var.nfsv3_enabled
   allow_nested_items_to_be_public = var.allow_nested_items_to_be_public
   enable_https_traffic_only       = var.enable_https_traffic_only
+  public_network_access_enabled   = var.public_network_access_enabled
+  shared_access_key_enabled       = var.shared_access_key_enabled
   tags                            = var.tags
 }

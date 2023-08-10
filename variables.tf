@@ -59,3 +59,33 @@ variable "enable_https_traffic_only" {
   type        = bool
   default     = true
 }
+
+variable "public_network_access_enabled" {
+  description = "(Optional) Whether the public network access is enabled? Defaults to true."
+  type        = bool
+  default     = true
+}
+
+variable "default_to_oauth_authentication" {
+  description = "(Optional) Default to Azure Active Directory authorization in the Azure portal when accessing the Storage Account. The default value is false"
+  type        = bool
+  default     = false
+}
+
+variable "access_tier" {
+  description = "(Optional) Defines the access tier for BlobStorage, FileStorage and StorageV2 accounts. Valid options are Hot and Cool, defaults to Hot."
+  type        = string
+  default     = "Hot"
+}
+
+variable "shared_access_key_enabled" {
+  description = "(Optional) Indicates whether the storage account permits requests to be authorized with the account access key via Shared Key. If false, then all requests, including shared access signatures, must be authorized with Azure Active Directory (Azure AD). The default value is true."
+  type        = bool
+  default     = true
+}
+
+variable "nfsv3_enabled" {
+  description = "(Optional) Is NFSv3 protocol enabled? Changing this forces a new resource to be created. Defaults to false."
+  type        = bool
+  default     = false
+}
