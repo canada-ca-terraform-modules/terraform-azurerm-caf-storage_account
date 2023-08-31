@@ -89,3 +89,8 @@ variable "nfsv3_enabled" {
   type        = bool
   default     = false
 }
+
+variable "static_website_enabled" {
+  type        = bool
+  default     = false
+}

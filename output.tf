@@ -12,3 +12,8 @@ output "name" {
   value       = azurerm_storage_account.storage_account.name
   description = "returns the name of Storage Account"
 }
+
+output "primary_web_host" {
+  value       = azurerm_storage_account.storage_account.primary_web_host
+  description = "web host of Storage Account"
+}
