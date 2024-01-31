@@ -94,3 +94,8 @@ variable "static_website_enabled" {
   type        = bool
   default     = false
 }
+
+variable "sftp_enabled" {
+  type        = bool
+  default     = false
+}
