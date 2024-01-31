@@ -26,6 +26,7 @@ resource "azurerm_storage_account" "storage_account" {
   enable_https_traffic_only       = var.enable_https_traffic_only
   public_network_access_enabled   = var.public_network_access_enabled
   shared_access_key_enabled       = var.shared_access_key_enabled
+  sftp_enabled                    = var.sftp_enabled
   tags     = var.tags
   
   dynamic "static_website" {
