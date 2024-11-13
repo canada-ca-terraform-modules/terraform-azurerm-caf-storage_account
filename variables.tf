@@ -54,8 +54,8 @@ variable "allow_nested_items_to_be_public" {
   default     = false
 }
 
-variable "enable_https_traffic_only" {
-  description = "(Optional) Boolean flag which forces HTTPS if enabled, see here for more information. Defaults to true."
+variable "https_traffic_only_enabled" {
+  description = "(Optional) Enable default outbound access to the internet for the subnet. Defaults to true."
   type        = bool
   default     = true
 }
@@ -91,11 +91,6 @@ variable "nfsv3_enabled" {
 }
 
 variable "static_website_enabled" {
-  type        = bool
-  default     = false
-}
-
-variable "sftp_enabled" {
   type        = bool
   default     = false
 }

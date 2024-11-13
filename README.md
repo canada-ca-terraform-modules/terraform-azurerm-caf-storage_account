@@ -2,6 +2,8 @@
 
 Creates an Azure Storage Account.
 
+<!-- BEGIN_TF_DOCS -->
+
 ## Requirements
 
 No requirements.
@@ -51,3 +53,4 @@ No modules.
 | <a name="output_id"></a> [id](#output\_id) | returns the ID of Storage Account |
 | <a name="output_name"></a> [name](#output\_name) | returns the name of Storage Account |
 | <a name="output_object"></a> [object](#output\_object) | returns the full Azure Storage Account Object |
+<!-- END_TF_DOCS -->

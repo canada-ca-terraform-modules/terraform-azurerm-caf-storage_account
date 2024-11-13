@@ -23,10 +23,9 @@ resource "azurerm_storage_account" "storage_account" {
   min_tls_version                 = var.min_tls_version
   nfsv3_enabled                   = var.nfsv3_enabled
   allow_nested_items_to_be_public = var.allow_nested_items_to_be_public
-  enable_https_traffic_only       = var.enable_https_traffic_only
+  https_traffic_only_enabled      = var.https_traffic_only_enabled
   public_network_access_enabled   = var.public_network_access_enabled
   shared_access_key_enabled       = var.shared_access_key_enabled
-  sftp_enabled                    = var.sftp_enabled
   tags     = var.tags
   
   dynamic "static_website" {
