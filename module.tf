@@ -26,17 +26,17 @@ resource "azurerm_storage_account" "storage_account" {
   https_traffic_only_enabled        = var.https_traffic_only_enabled
   public_network_access_enabled     = var.public_network_access_enabled
   shared_access_key_enabled         = var.shared_access_key_enabled
-  edge_zone                         = try(var.edge_zone, null)
-  cross_tenant_replication_enabled  = try(var.cross_tenant_replication_enabled, null)
-  large_file_share_enabled          = try(var.large_file_share_enabled, null)
-  local_user_enabled                = try(var.local_user_enabled, null)
-  queue_encryption_key_type         = try(var.queue_encryption_key_type, null)
-  table_encryption_key_type         = try(var.table_encryption_key_type, null)
-  infrastructure_encryption_enabled = try(var.infrastructure_encryption_enabled, null)
-  allowed_copy_scope                = try(var.allowed_copy_scope, null)
-  sftp_enabled                      = try(var.sftp_enabled, null)
-  dns_endpoint_type                 = try(var.dns_endpoint_type, null)
-  provisioned_billing_model_version = try(var.provisioned_billing_model_version, null)
+  edge_zone                         = var.edge_zone
+  cross_tenant_replication_enabled  = var.cross_tenant_replication_enabled
+  large_file_share_enabled          = var.large_file_share_enabled
+  local_user_enabled                = var.local_user_enabled
+  queue_encryption_key_type         = var.queue_encryption_key_type
+  table_encryption_key_type         = var.table_encryption_key_type
+  infrastructure_encryption_enabled = var.infrastructure_encryption_enabled
+  allowed_copy_scope                = var.allowed_copy_scope
+  sftp_enabled                      = var.sftp_enabled
+  dns_endpoint_type                 = var.dns_endpoint_type
+  provisioned_billing_model_version = var.provisioned_billing_model_version
   tags                              = local.tags
 
   dynamic "network_rules" {

@@ -49,13 +49,13 @@ variable "min_tls_version" {
 }
 
 variable "allow_nested_items_to_be_public" {
-  description = "Allow or disallow nested items within this Account to opt into being public. Defaults to true."
+  description = "Allow or disallow nested items within this Account to opt into being public. Defaults to false."
   type        = bool
   default     = false
 }
 
 variable "https_traffic_only_enabled" {
-  description = "(Optional) Enable default outbound access to the internet for the subnet. Defaults to true."
+  description = "(Optional) Boolean flag which forces HTTPS if enabled. Defaults to true."
   type        = bool
   default     = true
 }
@@ -115,7 +115,7 @@ variable "edge_zone" {
 }
 
 variable "cross_tenant_replication_enabled" {
-  description = "(Optional) Should cross Tenant replication be enabled? Defaults to false."
+  description = "(Optional) Should cross Tenant replication be enabled? Defaults to the provider default (false)."
   type        = bool
   default     = null
 }
