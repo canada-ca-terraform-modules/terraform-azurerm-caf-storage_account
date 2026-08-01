@@ -33,7 +33,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - `ESLZ/storage_account.tf` and `ESLZ/storage_account.tfvars` — module block and tfvars examples for
   L2 callers (previously absent).
 - `tests/storage_account.tftest.hcl` and `tests/upgrade_compat.tftest.hcl` — `terraform test` coverage
-  using `mock_provider`, including a state-chained upgrade-safety test.
+  using `mock_provider` (19 runs total), including plan-only assertions for every new dynamic block
+  (`customer_managed_key`, `custom_domain`, `share_properties`, `azure_files_authentication`, `routing`,
+  `sas_policy`, `immutability_policy`) and a state-chained upgrade-safety test.
 - `.tflint.hcl`, `.github/workflows/terraform-ci.yml` — tflint + `terraform test` CI, zero findings.
 - `.gitattributes` enforcing LF line endings.
 
