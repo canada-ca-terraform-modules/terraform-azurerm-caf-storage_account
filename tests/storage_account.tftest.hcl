@@ -1,0 +1,177 @@
+# tests/storage_account.tftest.hcl
+mock_provider "azurerm" {}
+
+variables {
+  env               = "Dev"
+  userDefinedString = "test"
+  tags              = { environment = "test" }
+  resource_group = {
+    name     = "rg-test"
+    location = "canadacentral"
+    id       = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-test"
+  }
+}
+
+run "naming_convention" {
+  command = plan
+
+  assert {
+    condition     = length(azurerm_storage_account.storage_account.name) <= 24
+    error_message = "Storage account name must not exceed 24 characters"
+  }
+
+  assert {
+    condition     = can(regex("^[0-9a-z]+$", azurerm_storage_account.storage_account.name))
+    error_message = "Storage account name must be lowercase alphanumeric only"
+  }
+}
+
+run "default_values" {
+  command = plan
+
+  assert {
+    condition     = azurerm_storage_account.storage_account.account_tier == "Standard"
+    error_message = "Default account_tier must be Standard"
+  }
+
+  assert {
+    condition     = azurerm_storage_account.storage_account.account_kind == "StorageV2"
+    error_message = "Default account_kind must be StorageV2"
+  }
+
+  assert {
+    condition     = azurerm_storage_account.storage_account.account_replication_type == "GRS"
+    error_message = "Default account_replication_type must be GRS"
+  }
+
+  assert {
+    condition     = azurerm_storage_account.storage_account.min_tls_version == "TLS1_2"
+    error_message = "Default min_tls_version must be TLS1_2"
+  }
+
+  assert {
+    condition     = length(azurerm_storage_account_static_website.storage_account) == 0
+    error_message = "Static website resource must not be created by default"
+  }
+}
+
+run "tags_are_merged_with_module_tag" {
+  command = plan
+
+  assert {
+    condition     = azurerm_storage_account.storage_account.tags["environment"] == "test"
+    error_message = "Caller-supplied tags must be preserved"
+  }
+
+  assert {
+    condition     = contains(keys(azurerm_storage_account.storage_account.tags), "module")
+    error_message = "module tag must be merged into tags"
+  }
+}
+
+run "static_website_enabled_default_index_document" {
+  command = plan
+  variables {
+    static_website_enabled = true
+  }
+
+  assert {
+    condition     = length(azurerm_storage_account_static_website.storage_account) == 1
+    error_message = "Static website resource must be created when enabled"
+  }
+
+  assert {
+    condition     = azurerm_storage_account_static_website.storage_account[0].index_document == "index.html"
+    error_message = "Default index_document must be index.html"
+  }
+}
+
+run "static_website_custom_documents" {
+  command = plan
+  variables {
+    static_website_enabled            = true
+    static_website_index_document     = "home.html"
+    static_website_error_404_document = "notfound.html"
+  }
+
+  assert {
+    condition     = azurerm_storage_account_static_website.storage_account[0].index_document == "home.html"
+    error_message = "Custom index_document override not applied"
+  }
+
+  assert {
+    condition     = azurerm_storage_account_static_website.storage_account[0].error_404_document == "notfound.html"
+    error_message = "Custom error_404_document override not applied"
+  }
+}
+
+run "network_rules" {
+  command = plan
+  variables {
+    network_rules = {
+      default_action             = "Deny"
+      ip_rules                   = ["100.0.0.1"]
+      virtual_network_subnet_ids = []
+    }
+  }
+
+  assert {
+    condition     = azurerm_storage_account.storage_account.network_rules[0].default_action == "Deny"
+    error_message = "network_rules.default_action must be applied"
+  }
+}
+
+run "identity" {
+  command = plan
+  variables {
+    identity = {
+      type = "SystemAssigned"
+    }
+  }
+
+  assert {
+    condition     = azurerm_storage_account.storage_account.identity[0].type == "SystemAssigned"
+    error_message = "identity.type must be applied"
+  }
+}
+
+run "blob_properties_delete_retention_policy" {
+  command = plan
+  variables {
+    blob_properties = {
+      versioning_enabled = true
+      delete_retention_policy = {
+        days = 30
+      }
+    }
+  }
+
+  assert {
+    condition     = azurerm_storage_account.storage_account.blob_properties[0].versioning_enabled == true
+    error_message = "blob_properties.versioning_enabled must be applied"
+  }
+
+  assert {
+    condition     = azurerm_storage_account.storage_account.blob_properties[0].delete_retention_policy[0].days == 30
+    error_message = "blob_properties.delete_retention_policy.days must be applied"
+  }
+}
+
+run "no_optional_blocks_by_default" {
+  command = plan
+
+  assert {
+    condition     = length(azurerm_storage_account.storage_account.network_rules) == 0
+    error_message = "network_rules must be absent when not configured"
+  }
+
+  assert {
+    condition     = length(azurerm_storage_account.storage_account.identity) == 0
+    error_message = "identity must be absent when not configured"
+  }
+
+  assert {
+    condition     = length(azurerm_storage_account.storage_account.blob_properties) == 0
+    error_message = "blob_properties must be absent when not configured"
+  }
+}
