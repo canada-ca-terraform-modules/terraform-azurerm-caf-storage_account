@@ -1,6 +1,7 @@
 output "object" {
   value       = azurerm_storage_account.storage_account
   description = "returns the full Azure Storage Account Object"
+  sensitive   = true
 }
 
 output "id" {
